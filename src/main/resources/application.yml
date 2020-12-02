@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: reaqua
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=ReAqua
+    username: sa
+    password: my!SqlServer2020
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
