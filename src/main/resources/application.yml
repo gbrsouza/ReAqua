@@ -10,10 +10,10 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.SQLServer2012Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=ReAqua
-    username: sa
-    password: my!SqlServer2020
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:postgresql://localhost:5432/ReAqua
+    username: postgres
+    password: admin
+    driverClassName: org.postgresql.Driver
