@@ -18,4 +18,19 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String signin(){
+        return "sign-in";
+    }
+
+    @RequestMapping(value = "/cadastro", method = RequestMethod.GET)
+    public String signup(){
+        return "sign-up";
+    }
+
+    @RequestMapping(value = "/reset", method = RequestMethod.GET)
+    public String resetPassword(){
+        return "reset-password";
+    }
+
 }
