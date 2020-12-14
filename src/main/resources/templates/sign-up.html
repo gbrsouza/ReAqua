@@ -17,6 +17,8 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -80,6 +82,14 @@
                             </div>
                             <form action="/login">
                                 <!-- Form -->
+
+                                <div class="form-group mb-4">
+                                    <label for="name">Seu nome</label>
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" placeholder="Nome" name="name" id="name" autofocus required>
+                                    </div>
+                                </div>
+
                                 <div class="form-group mb-4">
                                     <label for="email">Seu Email</label>
                                     <div class="input-group">
@@ -92,6 +102,13 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="xxx.xxx.xxx-xx" name='cpf' id="cpf" autofocus required>
                                     </div>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="tower">Torre</label>
+                                    <select class="form-select" id="tower" name="tower" aria-label="Default select example" >
+                                        <option th:each="tower : ${towers}" th:value="${tower.id}" th:text="${tower.name}" selected="selected"></option>
+                                    </select>
                                 </div>
                                 <!-- End of Form -->
                                 <div class="form-group">
