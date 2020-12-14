@@ -17,6 +17,8 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -71,53 +73,74 @@
         <!-- Section -->
         <section class="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
             <div class="container">
-                <p class="text-center"><a href="../dashboard/dashboard.html" class="text-gray-700"><i class="fas fa-angle-left mr-2"></i> Back to homepage</a></p>
+                <p class="text-center"><a href="/" class="text-gray-700"><i class="fas fa-angle-left mr-2"></i> Voltar para a homepage</a></p>
                 <div class="row justify-content-center form-bg-image" data-background-lg="/assets/img/illustrations/signin.svg">
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div class="mb-4 mb-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h3">Create an account</h1>
+                                <h1 class="mb-0 h3">Criar uma conta</h1>
                             </div>
-                            <form action="#">
+                            <form action="/login">
                                 <!-- Form -->
+
                                 <div class="form-group mb-4">
-                                    <label for="email">Your Email</label>
+                                    <label for="name">Seu nome</label>
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" placeholder="Nome" name="name" id="name" autofocus required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="email">Seu Email</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon3"><span class="fas fa-envelope"></span></span>
                                         <input type="email" class="form-control" placeholder="example@company.com" id="email" autofocus required>
-                                    </div>  
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="email">CPF</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="xxx.xxx.xxx-xx" name='cpf' id="cpf" autofocus required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="tower">Torre</label>
+                                    <select class="form-select" id="tower" name="tower" aria-label="Default select example" >
+                                        <option th:each="tower : ${towers}" th:value="${tower.id}" th:text="${tower.name}" selected="selected"></option>
+                                    </select>
                                 </div>
                                 <!-- End of Form -->
                                 <div class="form-group">
                                     <!-- Form -->
                                     <div class="form-group mb-4">
-                                        <label for="password">Your Password</label>
+                                        <label for="password">Sua senha</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon4"><span class="fas fa-unlock-alt"></span></span>
-                                            <input type="password" placeholder="Password" class="form-control" id="password" required>
+                                            <input type="password" placeholder="Senha" class="form-control" id="password" required>
                                         </div>  
                                     </div>
                                     <!-- End of Form -->
                                     <!-- Form -->
                                     <div class="form-group mb-4">
-                                        <label for="confirm_password">Confirm Password</label>
+                                        <label for="confirm_password">Confirmar Senha</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon5"><span class="fas fa-unlock-alt"></span></span>
-                                            <input type="password" placeholder="Confirm Password" class="form-control" id="confirm_password" required>
+                                            <input type="password" placeholder="Confirmar Senha" class="form-control" id="confirm_password" required>
                                         </div>  
                                     </div>
                                     <!-- End of Form -->
                                     <div class="form-check mb-4">
                                         <input class="form-check-input" type="checkbox" value="" id="terms" required>
                                         <label class="form-check-label" for="terms">
-                                            I agree to the <a href="#">terms and conditions</a>
+                                            Eu aceito os termos e condições
                                         </label>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-block btn-primary">Sign in</button>
+                                <button type="submit" class="btn btn-block btn-primary">Cadastrar</button>
                             </form>
                             <div class="mt-3 mb-4 text-center">
-                                <span class="font-weight-normal">or</span>
+                                <span class="font-weight-normal">ou</span>
                             </div>
                             <div class="d-flex justify-content-center my-4">
                                 <a href="#" class="btn btn-icon-only btn-pill btn-outline-light text-facebook mr-2" type="button" aria-label="facebook button" title="facebook button">
@@ -132,8 +155,8 @@
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-4">
                                 <span class="font-weight-normal">
-                                    Already have an account?
-                                    <a href="./sign-in.html" class="font-weight-bold">Login here</a>
+                                    Já possui uma conta?
+                                    <a href="/login" class="font-weight-bold">Login aqui</a>
                                 </span>
                             </div>
                         </div>
