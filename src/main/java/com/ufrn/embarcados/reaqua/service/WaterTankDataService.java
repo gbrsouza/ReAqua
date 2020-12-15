@@ -49,23 +49,28 @@ public class WaterTankDataService {
         WaterTank waterTank = waterTankData.getWaterTank();
         Tower tower = towerService.getByWaterTank(waterTank);
         // @TODO Percorrer usuários para mandar email
-        /*List<ApplicationUser> users = applicationUserService.getAllByTower(tower);
+        List<ApplicationUser> users = applicationUserService.getAllByTower(tower);
         for (ApplicationUser user: users) {
             sendUserEmail(user);
-        }*/
+        }
     }
 
     private void sendUserEmail(ApplicationUser user) {
         // @TODO Substituir usuario e senha por usuario e senhas reais para
         // Que a notificação funcione
-        String username = "usuario_sistema";
-        String password = "senha";
+        String to = user.getEmail();
+        String from = "reaquanoreplies@gmail.com";
+        String host = "smtp.gmail.com";
+
+        String username = "reaquanoreplies@gmail.com";
+        String password = "***";
         Properties prop = new Properties();
+        // mail.smtp.host=smtp.gmail.com, mail.smtp.port=25, mail.smtp.auth=true mail.smtp.starttls.enable=true
         prop.put("mail.smtp.auth", true);
-        prop.put("mail.smtp.starttls.enable", "true");
-        prop.put("mail.smtp.host", "smtp.mailtrap.io");
+        prop.put("mail.smtp.starttls.enable", true);
+        prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "25");
-        prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
+        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -77,9 +82,10 @@ public class WaterTankDataService {
             message.setFrom(new InternetAddress("reaquanoreplies@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
-            message.setSubject("Mail Subject");
+            message.setSubject("Notificação ReAqua");
 
-            String msg = "This is my first email using JavaMailer";
+            String msg = "O reservatório da sua torre está abaixo de 25% e " +
+                    "pode ser que em breve falte água no seu prédio.";
 
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setContent(msg, "text/html");
@@ -90,6 +96,7 @@ public class WaterTankDataService {
             message.setContent(multipart);
 
             Transport.send(message);
+            System.out.println("Email enviado para " + user.getEmail());
         }
         catch (Exception e){
             e.printStackTrace();
