@@ -97,9 +97,39 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-sm-9">
+				<div class="card border-light shadow-sm">
+					<div class="card-header">
+						<h5 class="mb-0">Histórico de consumo</h5>
+					</div>
+					<div class="card-body">
+						<div class="line-chart-filled"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</main>
 </div>
+
+<script src="../../vendor/chartist/dist/chartist.min.js"></script>
+<script src="../../vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+var dates = /*[(${dates})]*/ 'default';
+var consumption = /*[(${consumption})]*/ 'default';
+/*]]>*/
+new Chartist.Line('.line-chart-filled', {
+	  labels: dates,
+	  series: consumption
+	}, {
+	  low: 0,
+	  showArea: true,
+	    plugins: [
+	        Chartist.plugins.tooltip()
+	    ]
+	});
+</script>
 </body>
 
 <!-- Core -->
