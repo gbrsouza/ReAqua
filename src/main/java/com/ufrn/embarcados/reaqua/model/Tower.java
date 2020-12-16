@@ -20,4 +20,8 @@ public class Tower {
     @JoinColumn(name="water_tank_id", referencedColumnName = "id")
     private List<WaterTank> waterTanks;
 
+    public List<WaterTank> getWaterTanks() {
+        return waterTanks;
+    }
+
 }

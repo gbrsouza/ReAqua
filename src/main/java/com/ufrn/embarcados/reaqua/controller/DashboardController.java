@@ -89,14 +89,14 @@ public class DashboardController {
 				Integer previousCapacity = null;
 				for (WaterTankData d: data) {
 					if (previousCapacity != null) {
-						if (d.getCapacity() > previousCapacity) {
-							waterFill += d.getCapacity();
+						if (d.getLevel() > previousCapacity) {
+							waterFill += d.getLevel();
 						} else {
-							waterUse += d.getCapacity();
+							waterUse += d.getLevel();
 						}
 					}
 
-					previousCapacity = d.getCapacity();
+					previousCapacity = d.getLevel();
 					System.out.println(d.toString());
 				}
 
