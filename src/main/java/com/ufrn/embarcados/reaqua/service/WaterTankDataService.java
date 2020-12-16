@@ -112,4 +112,8 @@ public class WaterTankDataService {
     public List<WaterTankData> getAllData() {
         return waterTankDataRepository.findAll();
     }
+
+	public List<WaterTankData> getDataByTankId(Long tankId) {
+        return waterTankDataRepository.findByWaterTank(tankId);
+    }
 }

@@ -31,4 +31,8 @@ public class WaterTankService {
     public WaterTank getById(Long tankId) {
         return waterTankRepository.findById(tankId).get();
     }
+
+    public void save(WaterTank waterTank) {
+        waterTankRepository.save(waterTank);
+    }
 }

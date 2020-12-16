@@ -1,9 +1,11 @@
 package com.ufrn.embarcados.reaqua.controller;
 
 import com.ufrn.embarcados.reaqua.model.Tower;
+import com.ufrn.embarcados.reaqua.model.WaterPump;
 import com.ufrn.embarcados.reaqua.model.WaterTank;
 import com.ufrn.embarcados.reaqua.model.WaterTankData;
 import com.ufrn.embarcados.reaqua.service.TowerService;
+import com.ufrn.embarcados.reaqua.service.WaterPumpService;
 import com.ufrn.embarcados.reaqua.service.WaterTankDataService;
 import com.ufrn.embarcados.reaqua.service.WaterTankService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,12 @@ public class HardwareApi {
     @Autowired
     private TowerService towerService;
 
+    @Autowired
+    private WaterPumpService waterPumpService;
+
+    /******************************************************
+     *                      WaterTank                     |
+     *****************************************************/
     @RequestMapping(value = "/{tower-id}/water-tank", method = RequestMethod.POST)
     public String registerWaterTank(HttpServletRequest request,
                                     @PathVariable("tower-id") Long towerId,
@@ -37,6 +45,9 @@ public class HardwareApi {
         return "Water Tank Registered";
     }
 
+    /******************************************************
+     *                   WaterTankData                    |
+     *****************************************************/
     @RequestMapping(value = "/{tank-id}/water-level", method = RequestMethod.POST)
     public String registerLevel(HttpServletRequest request,
                                  @PathVariable("tank-id") Long tankId,
@@ -68,6 +79,23 @@ public class HardwareApi {
 
         return re;
     }
+    @RequestMapping(value = "/{tank-id}/water-levels", method = RequestMethod.GET)
+    public ResponseEntity<List<WaterTankData>> getNiveisByTank(
+            HttpServletRequest request,
+            @PathVariable("tank-id") Long tankId)
+    {
+        List<WaterTankData> niveis;
+        ResponseEntity<List<WaterTankData>> re;
+
+        try {
+            niveis = waterTankDataService.getDataByTankId(tankId);
+            re = new ResponseEntity<> (niveis, HttpStatus.OK);
+        } catch (Exception e) {
+            re = new ResponseEntity<> (null, HttpStatus.NOT_FOUND);
+        }
+
+        return re;
+    }
 
     @RequestMapping(value = "/water-levels/{dataInicial}/{dataFinal}", method = RequestMethod.GET)
     public ResponseEntity<List<WaterTankData>> showLevelsByDay(
@@ -89,4 +117,56 @@ public class HardwareApi {
 
         return re;
     }
+    /******************************************************
+     *                      WaterPump                     |
+     *****************************************************/
+    @RequestMapping(value = "/{tank-id}/water-pump", method = RequestMethod.POST)
+    public String registerWaterPump(HttpServletRequest request,
+                                    @PathVariable("tank-id") Long tankId,
+                                    @RequestBody WaterPump waterPump){
+        try {
+            WaterTank waterTank = waterTankService.getById(tankId);
+            waterTank.setWaterPump(waterPump);
+            waterPumpService.save(waterPump);
+            waterTankService.save(waterTank);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        return "Bomba registrada";
+    }
+
+    @RequestMapping(value = "/water-pumps", method = RequestMethod.GET)
+    public ResponseEntity<List<WaterPump>> getWaterPumps(HttpServletRequest request)
+    {
+        List<WaterPump> pumps;
+        ResponseEntity<List<WaterPump>> re;
+
+        try {
+            pumps = waterPumpService.listAll();
+            re = new ResponseEntity<> (pumps, HttpStatus.OK);
+        } catch (Exception e) {
+            re = new ResponseEntity<> (null, HttpStatus.NOT_FOUND);
+        }
+
+        return re;
+    }
+
+    @RequestMapping(value = "/{tank-id}/water-pump", method = RequestMethod.GET)
+    public ResponseEntity<WaterPump> returnWaterPump(HttpServletRequest request,
+                                    @PathVariable("tank-id") Long tankId) {
+        WaterPump waterPump;
+        ResponseEntity<WaterPump> re;
+        try {
+            waterPump =  waterTankService.getById(tankId).getWaterPump();
+            re = new ResponseEntity<> (waterPump, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            re = new ResponseEntity<> (null, HttpStatus.NOT_FOUND);
+        }
+        return re;
+    }
+
 }
