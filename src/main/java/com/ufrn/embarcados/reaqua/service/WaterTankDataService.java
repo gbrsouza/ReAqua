@@ -17,18 +17,23 @@ import javax.mail.internet.MimeMultipart;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class WaterTankDataService {
 
-    @Autowired
+    //@Autowired
     private final WaterTankDataRepository waterTankDataRepository;
 
-    @Autowired
+    //@Autowired
     private TowerService towerService;
 
-    @Autowired
+    //@Autowired
     private ApplicationUserService applicationUserService;
 
     public void save(WaterTankData waterTankData)
@@ -116,4 +121,13 @@ public class WaterTankDataService {
 	public List<WaterTankData> getDataByTankId(Long tankId) {
         return waterTankDataRepository.findByWaterTank(tankId);
     }
+
+	public List<WaterTankData> listAll(){
+		return waterTankDataRepository.findAll(Sort.by(Sort.Direction.DESC, "timestamp"));
+	}
+	
+	public List<WaterTankData> findByWaterTankAndDate(WaterTank waterTank, Date startDate, Date endDate){
+		return waterTankDataRepository.findByWaterTankAndDate(waterTank, startDate, endDate);
+	}
+
 }

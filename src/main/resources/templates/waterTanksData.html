@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Primary Meta Tags -->
+<title>Registros</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="Registros">
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+<link rel="manifest" href="/assets/img/favicon/site.webmanifest">
+<link rel="mask-icon" href="/assets/img/favicon/safari-pinned-tab.svg" color="#ffffff">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Fontawesome -->
+<link type="text/css" href="/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+<!-- Notyf -->
+<link type="text/css" href="/vendor/notyf/notyf.min.css" rel="stylesheet">
+
+<!-- Volt CSS -->
+<link type="text/css" href="/css/volt.css" rel="stylesheet">
+</head>
+
+<body>
+<nav id="sidebarMenu" class="sidebar d-md-block bg-primary text-white collapse" data-simplebar>
+    <div class="sidebar-inner px-4 pt-3">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a th:href="@{/dashboard}" class="nav-link">
+            <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/waterTanks}" class="nav-link">
+              <span class="sidebar-icon"><span class="fas fa-tint"></span></span>
+              <span>Tanques de Água</span>
+            </a>
+          </li>
+        <li class="nav-item">
+          <span class="nav-link collapsed d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#tower-list">
+            <span>
+              <span class="sidebar-icon"><span class="fas fa-table"></span></span>
+              Torres
+            </span>
+            <span class="link-arrow"><span class="fas fa-chevron-right"></span></span>
+          </span>
+          <div class="multi-level collapse" role="list" id="tower-list" aria-expanded="false">
+              <ul class="flex-column nav">
+                  <li class="nav-item" th:each="tower:${towers}">
+                  	<a class="nav-link" th:href="@{/dashboard/{t}(t=${tower.id})}" th:text="${tower.name}"></a>
+                  </li>
+              </ul>
+          </div>
+        </li>
+        <li class="nav-item active">
+            <a th:href="@{/waterTanksData}" class="nav-link">
+              <span class="sidebar-icon"><span class="fas fa-clipboard-list"></span></span>
+              <span>Registros</span>
+            </a>
+        </li>
+      </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+	<main class="content">
+		<div class="row">
+			<div class="col">
+				<br />
+				<h3>Registros</h3>
+				<br />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="card border-light shadow-sm">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-centered table-nowrap mb-0 rounded">
+								<thead class="thead-light">
+									<tr>
+										<th class="border-0">Data</th>
+										<th class="border-0">Tanque</th>
+										<th class="border-0">Capacidade</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="waterTankData:${data}">
+										<td class="border-0" th:text="${waterTankData.timestamp}"></td>
+										<td class="border-0" th:text="${waterTankData.waterTank.description}"></td>
+										<td class="border-0 font-weight-bold" th:text="|${waterTankData.capacity}%|"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+</body>
+
+<!-- Core -->
+<script src="../../vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="../../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</html>

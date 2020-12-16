@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class WaterTankService {
-    @Autowired
+    //@Autowired
     private WaterTankRepository waterTankRepository;
 
     private TowerService towerService;
