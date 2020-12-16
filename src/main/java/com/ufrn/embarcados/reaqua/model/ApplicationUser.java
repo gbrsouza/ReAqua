@@ -21,7 +21,4 @@ public class ApplicationUser {
     @JoinColumn(name = "tower_id", referencedColumnName = "id")
     private Tower tower;
 
-    public String getEmail() {
-        return email;
-    }
 }

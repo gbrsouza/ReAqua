@@ -19,36 +19,5 @@ public class WaterTankData {
     @OneToOne
     @JoinColumn(name = "water_tank_id", referencedColumnName = "id")
     private WaterTank waterTank;
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public WaterTank getWaterTank() {
-        return waterTank;
-    }
-
-    public void setWaterTank(WaterTank waterTank) {
-        this.waterTank = waterTank;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
 }
