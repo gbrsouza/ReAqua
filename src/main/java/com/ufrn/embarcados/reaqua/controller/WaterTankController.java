@@ -34,6 +34,7 @@ public class WaterTankController {
 		
 		if (admin) {
 			List<Tower> towers = towerService.listAll();
+			model.addAttribute("username", user.getName());
 			model.addAttribute("towers", towers);
 			return "waterTanks";
 		} else
