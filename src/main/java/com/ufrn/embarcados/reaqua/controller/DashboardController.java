@@ -5,17 +5,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ufrn.embarcados.reaqua.model.ApplicationUser;
 import com.ufrn.embarcados.reaqua.model.Tower;
 import com.ufrn.embarcados.reaqua.model.WaterTank;
 import com.ufrn.embarcados.reaqua.model.WaterTankData;
 import com.ufrn.embarcados.reaqua.service.TowerService;
 import com.ufrn.embarcados.reaqua.service.WaterTankDataService;
+import com.ufrn.embarcados.reaqua.util.Role;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,10 +35,13 @@ public class DashboardController {
 
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard(Model model){
+		ApplicationUser user = (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		boolean admin = user.getRole().equals(Role.ADMIN);
+		
 		List<Tower> towers = towerService.listAll();
-		//TODO substituir pela torre do usuário logado 
-		Tower selectedTower = towerService.findById(1L).get();
+		Tower selectedTower = towerService.findById(user.getTower().getId()).get();
 
+		model.addAttribute("admin", admin);
 		model.addAttribute("selectedTower", selectedTower);
 		model.addAttribute("towers", towers);
 		model.addAttribute("dates", getWaterConsumptionDateList());
@@ -45,14 +51,21 @@ public class DashboardController {
 
 	@RequestMapping(value = "/dashboard/{id}", method = RequestMethod.GET)
 	public String towerBoard(Model model, @PathVariable String id){
-		List<Tower> towers = towerService.listAll();
-		Tower selectedTower = towerService.findById(Long.valueOf(id)).get();
-
-		model.addAttribute("selectedTower", selectedTower);
-		model.addAttribute("towers", towers);
-		model.addAttribute("dates", getWaterConsumptionDateList());
-		model.addAttribute("consumption", getWaterConsumption(selectedTower));
-		return "dashboard";
+		ApplicationUser user = (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		boolean admin = user.getRole().equals(Role.ADMIN);
+		model.addAttribute("admin", admin);
+		
+		if (admin) {
+			List<Tower> towers = towerService.listAll();
+			Tower selectedTower = towerService.findById(Long.valueOf(id)).get();
+	
+			model.addAttribute("selectedTower", selectedTower);
+			model.addAttribute("towers", towers);
+			model.addAttribute("dates", getWaterConsumptionDateList());
+			model.addAttribute("consumption", getWaterConsumption(selectedTower));
+			return "dashboard";
+		} else
+			return "redirect:/dashboard";
 	}
 
 	private List<String> getWaterConsumptionDateList() {

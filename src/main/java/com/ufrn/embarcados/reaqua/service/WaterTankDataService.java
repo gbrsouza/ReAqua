@@ -127,7 +127,7 @@ public class WaterTankDataService {
 	}
 	
 	public List<WaterTankData> findByWaterTankAndDate(WaterTank waterTank, Date startDate, Date endDate){
-		return waterTankDataRepository.findByWaterTankAndTimestampBeforeAndTimestampAfterOrderByTimestamp(waterTank, startDate, endDate);
+		return waterTankDataRepository.findByWaterTankAndTimestampAfterAndTimestampBeforeOrderByTimestamp(waterTank, startDate, endDate);
 	}
 
 }
