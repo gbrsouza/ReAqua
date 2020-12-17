@@ -19,12 +19,4 @@ public class WaterTank {
     @JoinColumn(name = "water_pump_id", referencedColumnName = "id")
     private WaterPump waterPump;
 
-    public WaterPump getWaterPump() {
-        return waterPump;
-    }
-
-    public void setWaterPump(WaterPump waterPump) {
-        this.waterPump = waterPump;
-    }
-
 }

@@ -80,13 +80,13 @@
                             <div class="text-center text-md-center mb-4 mt-md-0">
                                 <h1 class="mb-0 h3">Criar uma conta</h1>
                             </div>
-                            <form action="/login">
+                            <form action="/cadastro/save" method="post">
                                 <!-- Form -->
 
                                 <div class="form-group mb-4">
                                     <label for="name">Seu nome</label>
                                     <div class="input-group">
-                                        <input type="email" class="form-control" placeholder="Nome" name="name" id="name" autofocus required>
+                                        <input type="text" class="form-control" placeholder="Nome" name="name" id="name" autofocus required>
                                     </div>
                                 </div>
 
@@ -94,7 +94,7 @@
                                     <label for="email">Seu Email</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon3"><span class="fas fa-envelope"></span></span>
-                                        <input type="email" class="form-control" placeholder="example@company.com" id="email" autofocus required>
+                                        <input type="email" class="form-control" placeholder="example@company.com" id="email" name="email" autofocus required>
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
@@ -117,7 +117,7 @@
                                         <label for="password">Sua senha</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon4"><span class="fas fa-unlock-alt"></span></span>
-                                            <input type="password" placeholder="Senha" class="form-control" id="password" required>
+                                            <input type="password" placeholder="Senha" class="form-control" name="password" id="password" required>
                                         </div>  
                                     </div>
                                     <!-- End of Form -->
@@ -138,6 +138,8 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-block btn-primary">Cadastrar</button>
+
+<!--                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
                             </form>
                             <div class="mt-3 mb-4 text-center">
                                 <span class="font-weight-normal">ou</span>

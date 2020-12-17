@@ -19,4 +19,6 @@ public class ApplicationUserService {
     public List<ApplicationUser> getAllByTower(Tower tower) {
         return userRepository.findByTower(tower);
     }
+
+    public void saveUser(ApplicationUser user) { userRepository.save(user); }
 }

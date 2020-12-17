@@ -17,6 +17,10 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+
 
 <head> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -78,13 +82,13 @@
                             <div class="text-center text-md-center mb-4 mt-md-0">
                                 <h1 class="mb-0 h3">Entrar na plataforma</h1>
                             </div>
-                            <form action="#" class="mt-4">
+                            <form action="/login" method="post" class="mt-4">
                                 <!-- Form -->
                                 <div class="form-group mb-4">
                                     <label for="email">Seu Email</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon1"><span class="fas fa-envelope"></span></span>
-                                        <input type="email" class="form-control" placeholder="example@company.com" id="email" autofocus required>
+                                        <input type="email" class="form-control" placeholder="example@company.com" name="username" id="email" autofocus required>
                                     </div>  
                                 </div>
                                 <!-- End of Form -->
@@ -94,7 +98,7 @@
                                         <label for="password">Sua Senha</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon2"><span class="fas fa-unlock-alt"></span></span>
-                                            <input type="password" placeholder="Senha" class="form-control" id="password" required>
+                                            <input type="password" placeholder="Senha" class="form-control" name="password" id="password" required>
                                         </div>  
                                     </div>
                                     <!-- End of Form -->
@@ -109,6 +113,8 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-block btn-primary">Entrar</button>
+
+<!--                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
                             </form>
                             <div class="mt-3 mb-4 text-center">
                                 <span class="font-weight-normal">Ou entre com</span>
