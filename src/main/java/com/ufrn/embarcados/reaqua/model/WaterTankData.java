@@ -19,5 +19,5 @@ public class WaterTankData {
     @OneToOne
     @JoinColumn(name = "water_tank_id", referencedColumnName = "id")
     private WaterTank waterTank;
-    
+
 }

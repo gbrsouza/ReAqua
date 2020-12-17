@@ -17,8 +17,10 @@ import java.util.List;
 public interface WaterTankDataRepository extends JpaRepository<WaterTankData, Long> {
 
     // Method mantained for compatibility
-    @Query("select w from WaterTankData w where w.waterTank = :waterTank and w.timestamp < :endDate and w.timestamp > :startDate order by timestamp")
-    List<WaterTankData> findByWaterTankAndDate(@Param("waterTank") WaterTank waterTank, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
+//    @Query("select w from WaterTankData w where w.waterTank = :waterTank and w.timestamp < :endDate and w.timestamp > :startDate order by timestamp")
+//    List<WaterTankData> findByWaterTankAndDate(@Param("waterTank") WaterTank waterTank, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
+    List<WaterTankData> findByWaterTankAndTimestampBeforeAndTimestampAfterOrderByTimestamp(WaterTank waterTank, Date startDate, Date endDat);
+
 
     @Query(value="select * from water_tank_data e where e.timestamp between :di and :df", nativeQuery = true)
     List<WaterTankData> findByDateRange(@Param("di") LocalDate startDate,
