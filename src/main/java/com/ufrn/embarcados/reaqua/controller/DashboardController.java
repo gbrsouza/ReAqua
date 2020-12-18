@@ -42,6 +42,7 @@ public class DashboardController {
 		Tower selectedTower = towerService.findById(user.getTower().getId()).get();
 
 		model.addAttribute("admin", admin);
+		model.addAttribute("username", user.getName());
 		model.addAttribute("selectedTower", selectedTower);
 		model.addAttribute("towers", towers);
 		model.addAttribute("dates", getWaterConsumptionDateList());
@@ -59,6 +60,7 @@ public class DashboardController {
 			List<Tower> towers = towerService.listAll();
 			Tower selectedTower = towerService.findById(Long.valueOf(id)).get();
 	
+			model.addAttribute("username", user.getName());
 			model.addAttribute("selectedTower", selectedTower);
 			model.addAttribute("towers", towers);
 			model.addAttribute("dates", getWaterConsumptionDateList());
@@ -103,9 +105,9 @@ public class DashboardController {
 				for (WaterTankData d: data) {
 					if (previousCapacity != null) {
 						if (d.getLevel() > previousCapacity) {
-							waterFill += d.getLevel();
-						} else {
-							waterUse += d.getLevel();
+							waterFill += (d.getLevel() - previousCapacity);
+						} else if (d.getLevel() < previousCapacity) {
+							waterUse += (previousCapacity - d.getLevel());
 						}
 					}
 
